@@ -11,4 +11,4 @@ It also works with Cloud9 (naturally).
 ## Usage
 
 - `keyring.sh install` - setup your lastpass login
-- `keyring.sh add-key ~/.ssh/[keyfile]` - Add an existing ssh key to be the keyring
+- `keyring.sh add-key ~/.ssh/[keyfile]` - Add an existing ssh key to the keyring
