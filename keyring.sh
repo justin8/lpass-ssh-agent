@@ -66,7 +66,7 @@ start() {
     
     login &> /dev/null
     
-    if [ "$SSH_AUTH_SOCK" != "" ] ; then
+    if [ "$SSH_AUTH_SOCK" == "" ] ; then
         ssh-agent -s
     fi
 }
