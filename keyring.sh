@@ -36,7 +36,7 @@ install-bashrc() {
     
     CODE="if [ -e $SCRIPT ]; then
     eval \$($SCRIPT start $EMAIL) &> /dev/null
-    $SCRIPT ssh-add ~/.ssh/id_rsa || echo '$SCRIPT failed to unlock key ~/.ssh/id_rsa (perhaps your passphrase has changed?)'
+    $SCRIPT ssh-add ~/.ssh/id_rsa
     alias ssh-add=\"$SCRIPT ssh-add\"
 fi"
 
@@ -96,7 +96,7 @@ ssh-add() {
     export SSH_ASKPASS_PASSWORD
     export DISPLAY=dummydisplay:0
     
-    timeout 1 setsid /usr/bin/ssh-add $KEY </dev/null &>/dev/null
+    timeout 1 setsid /usr/bin/ssh-add $KEY </dev/null &>/dev/null || echo '$SCRIPT failed to unlock key ~/.ssh/id_rsa (perhaps your passphrase has changed?)'
 }
 
 add-key() {
