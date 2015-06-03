@@ -83,7 +83,7 @@ ssh-add() {
     local KEY=${1:-~/.ssh/id_rsa}
     local NAME
     
-    NAME="ssh/$(basename $KEY)"
+    NAME="$(hostname)/ssh/$(basename $KEY)"
     
     SSH_ASKPASS_PASSWORD="$(lpass show --password $NAME)"
     
