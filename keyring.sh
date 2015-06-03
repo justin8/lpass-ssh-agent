@@ -18,6 +18,7 @@ install() {
     
     install-bashrc
     add-key ~/.ssh/id_rsa
+    source ~/.bashrc
 }
 
 install-bashrc() {
@@ -136,7 +137,7 @@ usage() {
     echo "Commands:"
     echo "    install           install lastpass client and configure your machine"
     echo "    add-key KEY       add an SSH key to the keyring"
-    echo "    add-ssh KEY       wrapper for the add-ssh unix tool"
+    echo "    ssh-add KEY       wrapper for the ssh-add unix tool that adds the key using the passphrase saved in your lastpass account"
     echo
     exit 1
 }
