@@ -96,7 +96,7 @@ ssh-add() {
     export SSH_ASKPASS_PASSWORD
     export DISPLAY=dummydisplay:0
     
-    setsid /usr/bin/ssh-add $KEY 
+    timeout 1 setsid /usr/bin/ssh-add $KEY </dev/null &>/dev/null
 }
 
 add-key() {
