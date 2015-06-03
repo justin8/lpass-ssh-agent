@@ -18,7 +18,7 @@ install() {
     
     install-bashrc
     add-key ~/.ssh/id_rsa
-    source ~/.bashrc
+    PS1='$ ' source ~/.bashrc
 }
 
 install-bashrc() {
@@ -96,7 +96,7 @@ ssh-add() {
     export SSH_ASKPASS_PASSWORD
     export DISPLAY=dummydisplay:0
     
-    setsid /usr/bin/ssh-add $KEY </dev/null
+    setsid /usr/bin/ssh-add $KEY 
 }
 
 add-key() {
