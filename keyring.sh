@@ -36,7 +36,7 @@ install-bashrc() {
     
     CODE="if [ -e $SCRIPT ]; then
     eval \$($SCRIPT start $EMAIL) &> /dev/null
-    $SCRIPT ssh-add ~/.ssh/id_rsa &> /dev/null
+    $SCRIPT ssh-add ~/.ssh/id_rsa || echo '$SCRIPT failed to unlock key ~/.ssh/id_rsa (perhaps your passphrase has changed?)'
     alias ssh-add=\"$SCRIPT ssh-add\"
 fi"
 
