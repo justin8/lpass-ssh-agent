@@ -28,6 +28,11 @@ install-bashrc() {
     local CODE_EXISTS
     
     read EMAIL
+    if [ -z "$EMAIL" ]; then 
+        echo "No email provided, aborting."
+        exit 1
+    fi
+    
     CODE="if [ -e $SCRIPT ]; then
     eval \$($SCRIPT start $EMAIL) &> /dev/null
     $SCRIPT ssh-add ~/.ssh/id_rsa &> /dev/null
@@ -158,6 +163,8 @@ for ARG in "$@"; do
             ;;
     esac
 done
+
+if [ ! "$1" ]; then usage; fi
 
 CMD=$1
 shift
