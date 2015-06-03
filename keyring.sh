@@ -7,7 +7,7 @@ readonly LPASS_USER_FILE=~/.lpass_user
 install() {
     pushd /tmp
     sudo apt-get update
-    sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip asciidoc
+    sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip asciidoc || { echo "Installation failed. Please try again and if it continues to fail open a github issue."; exit 1; }
     git clone https://github.com/lastpass/lastpass-cli.git
     cd lastpass-cli/
     make
@@ -49,7 +49,7 @@ fi"
         echo
         echo "$CODE"
         echo
-        echo -n "Do you want to proceed [y/n]? "
+        echo -n "Do you want to proceed [y/N]? "
         read ANSWER
         if [ "$ANSWER" == "y" ]; then
             echo "$CODE" >> ~/.bashrc
@@ -107,7 +107,7 @@ add-key() {
     
     echo "We are going to add a random key phrase to the ssh key '$KEY'. This key phrase will be stored in your lastpass account. A backup will be made before changing the key."
     echo
-    echo -n "Do you want to proceed [y/n]? "
+    echo -n "Do you want to proceed [y/N]? "
     read ANSWER
     if [ "$ANSWER" != "y" ]; then
         exit 1
