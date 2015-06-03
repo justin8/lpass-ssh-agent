@@ -83,7 +83,7 @@ ssh-add() {
     local KEY=${1:-~/.ssh/id_rsa}
     local NAME
     
-    NAME="$(hostname)/ssh/$(basename $KEY)"
+    NAME="ssh/$(hostname)/$(basename $KEY)"
     
     SSH_ASKPASS_PASSWORD="$(lpass show --password $NAME)"
     
@@ -119,7 +119,7 @@ add-key() {
     
     login
     
-    NAME="ssh/$(basename $KEY)"
+    NAME="ssh/$(hostname)/$(basename $KEY)"
     PASSWORD=$(lpass generate --no-symbols $NAME 16)
     ssh-keygen -p -N "$PASSWORD" -f $KEY
     cat $KEY | lpass edit --non-interactive --notes $NAME
