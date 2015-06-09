@@ -126,8 +126,12 @@ ssh-add() {
     export SSH_ASKPASS=$SCRIPT
     export SSH_ASKPASS_PASSWORD
     export DISPLAY=dummydisplay:0
-    
-    timeout 1 setsid /usr/bin/ssh-add $KEY </dev/null &>/dev/null || echo '$SCRIPT failed to unlock key ~/.ssh/id_rsa (perhaps your passphrase has changed?)'
+
+    if [ -x /usr/bin/setsid ]; then
+        timeout 1 setsid /usr/bin/ssh-add $KEY </dev/null &>/dev/null || echo '$SCRIPT failed to unlock key ~/.ssh/id_rsa (perhaps your passphrase has changed?)'
+    else
+        /usr/bin/ssh-add $KEY < /dev/null
+    fi
 }
 
 add-key() {
