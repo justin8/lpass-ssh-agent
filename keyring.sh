@@ -135,6 +135,7 @@ add-key() {
     local PASSWORD
     local NAME
     local ANSWER
+    local LPID
     
     echo "We are going to add a random key phrase to the ssh key '$KEY'. This key phrase will be stored in your lastpass account. A backup will be made before changing the key."
     echo
@@ -152,8 +153,9 @@ add-key() {
     
     NAME="ssh/$(hostname)-$(basename $KEY)"
     PASSWORD=$(lpass generate --no-symbols $NAME 16)
+    LPID=$(lpass show --id $NAME)
     ssh-keygen -p -N "$PASSWORD" -f $KEY
-    cat $KEY | lpass edit --non-interactive --notes $NAME
+    cat $KEY | lpass edit --non-interactive --notes $LPID
 }
 
 usage() {
