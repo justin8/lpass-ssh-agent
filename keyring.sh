@@ -5,6 +5,26 @@ set -e
 readonly LPASS_USER_FILE=~/.lpass_user
 
 install() {
+    
+    case "$(uname -a)" in
+        Linux\ *) 
+            instal_linux
+            ;;
+        Darwin\ *) 
+            install_osx
+            ;;
+        *)
+            echo "Unsupported platform: $(uname)"
+            exit 1
+            ;;
+    esac
+    
+    install-bashrc
+    add-key ~/.ssh/id_rsa
+    PS1='$ ' source ~/.bashrc
+}
+
+install_linux() {
     pushd /tmp
     sudo apt-get update
     sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip asciidoc || { echo "Installation failed. Please try again and if it continues to fail open a github issue."; exit 1; }
@@ -14,11 +34,22 @@ install() {
     sudo make install
     sudo make install-doc
     popd
-    rm -rf /tmp/lastpass-cli
-    
-    install-bashrc
-    add-key ~/.ssh/id_rsa
-    PS1='$ ' source ~/.bashrc
+    rm -rf /tmp/lastpass-cli    
+}
+
+install_osx() {
+    if which brew > /dev/null; then
+        echo "Installing lpass CLI using Homebrew"
+        brew update
+        brew install lastpass-cli --with-pinentry --with-doc
+    elif which port > /dev/null; then
+        echo "Installing lpass CLI using MacPorts"
+        sudo port selfupdate
+        sudo port install lastpass-cli-doc
+    else
+        echo "You need to have Homebrew (http://brew.sh/) or MacPorts (https://www.macports.org/) installed"
+        exit 1
+    fi
 }
 
 install-bashrc() {
@@ -83,7 +114,7 @@ ssh-add() {
     local KEY=${1:-~/.ssh/id_rsa}
     local NAME
     
-    NAME="ssh/$(hostname)/$(basename $KEY)"
+    NAME="ssh/$(hostname)-$(basename $KEY)"
     
     SSH_ASKPASS_PASSWORD="$(lpass show --password $NAME)"
     
@@ -119,7 +150,7 @@ add-key() {
     
     login
     
-    NAME="ssh/$(hostname)/$(basename $KEY)"
+    NAME="ssh/$(hostname)-$(basename $KEY)"
     PASSWORD=$(lpass generate --no-symbols $NAME 16)
     ssh-keygen -p -N "$PASSWORD" -f $KEY
     cat $KEY | lpass edit --non-interactive --notes $NAME
