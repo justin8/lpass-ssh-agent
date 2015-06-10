@@ -81,9 +81,9 @@ fi"
         echo
         echo "$CODE"
         echo
-        echo -n "Do you want to proceed [y/N]? "
+        echo -n "Do you want to proceed [Y/n]? "
         read ANSWER
-        if [ "$ANSWER" == "y" ]; then
+        if [[ ! "$ANSWER" =~ ^[Nn]$ ]]; then
             echo "$CODE" >> ~/.bash_profile
         fi
     fi
@@ -144,9 +144,9 @@ add-key() {
     
     echo "We are going to add a random key phrase to the ssh key '$KEY'. This key phrase will be stored in your lastpass account. A backup will be made before changing the key."
     echo
-    echo -n "Do you want to proceed [y/N]? "
+    echo -n "Do you want to proceed [Y/n]? "
     read ANSWER
-    if [ "$ANSWER" != "y" ]; then
+    if [[ "$ANSWER" =~ ^[Nn]$ ]]; then
         exit 1
     fi
     
