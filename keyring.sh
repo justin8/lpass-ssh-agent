@@ -26,6 +26,7 @@ install() {
 
 install_linux() {
     pushd /tmp
+    sudo apt-get -y install apt-transport-https
     sudo apt-get update
     sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip asciidoc || { echo "Installation failed. Please try again and if it continues to fail open a github issue."; exit 1; }
     git clone https://github.com/lastpass/lastpass-cli.git
