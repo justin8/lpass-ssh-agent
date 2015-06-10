@@ -8,7 +8,7 @@ install() {
     
     case "$(uname -a)" in
         Linux\ *) 
-            instal_linux
+            install_linux
             ;;
         Darwin\ *) 
             install_osx
