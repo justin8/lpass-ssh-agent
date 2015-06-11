@@ -133,6 +133,10 @@ ssh-add() {
     else
         /usr/bin/ssh-add $KEY < /dev/null
     fi
+    
+    if [ -f "$KEY.bak" ]; then
+        echo "WARNING: An unencrypted backup of your key is still stored at $KEY.bak. If lpass-ssh-agent is working for you please delete this."
+    fi
 }
 
 add-key() {
