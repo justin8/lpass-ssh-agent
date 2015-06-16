@@ -8,7 +8,18 @@ You can add new keys with a randomly generated passphrase or add a phrase to an 
 
 It also works with Cloud9 (naturally). 
 
+## Installation
+
+```
+git clone https://github.com/cloud9ide/lpass-ssh-agent.git
+cd lpass-ssh-agent
+./keyring.sh install
+```
+
 ## Usage
 
-- `keyring.sh install` - setup your lastpass login
-- `keyring.sh add-key ~/.ssh/[keyfile]` - Add an existing ssh key to the keyring
+`./keyring.sh add-key ~/.ssh/[keyfile]` - Add an existing ssh key to the keyring
+
+## License
+
+MIT
