@@ -19,3 +19,7 @@ cd lpass-ssh-agent
 ## Usage
 
 `./keyring.sh add-key ~/.ssh/[keyfile]` - Add an existing ssh key to the keyring
+
+## License
+
+MIT
