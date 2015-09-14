@@ -21,7 +21,7 @@ install() {
     
     install-bashrc
     add-key ~/.ssh/id_rsa
-    PS1='$ ' source ~/.bash_profile
+    PS1='$ ' source $BASHRC
 }
 
 install_linux() {
@@ -71,19 +71,24 @@ install-bashrc() {
     alias ssh-add=\"$SCRIPT ssh-add\"
 fi"
 
-    CODE_EXISTS=$(grep "$SCRIPT ssh-add" ~/.bash_profile || echo)
+    if [[ -e ~/.bash_profile ]]; then
+        BASHRC="$HOME/.bash_profile"
+    else
+        BASHRC="$HOME/.bashrc"
+    fi
+    CODE_EXISTS=$(grep "$SCRIPT ssh-add" $BASHRC || echo)
     if [ ! -z "$CODE_EXISTS" ]; then
-        echo "It looks like the ssh-agent code is already in your ~/.bash_profile file. Skipping."
+        echo "It looks like the ssh-agent code is already in your $BASHRC file. Skipping."
     else
         echo
-        echo "This code will be added to your ~/.bash_profile:"
+        echo "This code will be added to your $BASHRC:"
         echo
         echo "$CODE"
         echo
         echo -n "Do you want to proceed [Y/n]? "
         read ANSWER
         if [[ ! "$ANSWER" =~ ^[Nn]$ ]]; then
-            echo "$CODE" >> ~/.bash_profile
+            echo "$CODE" >> $BASHRC
         fi
     fi
     
