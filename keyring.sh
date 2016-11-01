@@ -71,7 +71,7 @@ install-bashrc() {
     alias ssh-add=\"$SCRIPT ssh-add\"
 fi"
 
-    CODE_EXISTS=$(grep "$SCRIPT ssh-add" ~/.profile || echo)
+    CODE_EXISTS=$(grep "$SCRIPT ssh-add" ~/.profile || grep "$SCRIPT ssh-add" ~/.bash_profile || echo)
     if [ ! -z "$CODE_EXISTS" ]; then
         echo "It looks like the ssh-agent code is already in your ~/.profile file. Skipping."
     else
