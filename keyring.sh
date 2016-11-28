@@ -28,10 +28,10 @@ install_linux() {
     pushd /tmp
     sudo apt-get -y install apt-transport-https
     sudo apt-get update
-    sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip || { echo "Installation failed. Please try again and if it continues to fail open a github issue."; exit 1; }
-    git clone https://github.com/lastpass/lastpass-cli.git
+    sudo apt-get -y install openssl libcurl3 libxml2 libssl-dev libxml2-dev libcurl4-openssl-dev pinentry-curses xclip cmake || { echo "Installation failed. Please try again and if it continues to fail open a github issue."; exit 1; }
+    [[ -e ./lastpass-cli ]] || git clone https://github.com/lastpass/lastpass-cli.git
     cd lastpass-cli/
-    make
+    cmake . && make
     sudo make install
     popd
     rm -rf /tmp/lastpass-cli    
@@ -71,7 +71,7 @@ install-bashrc() {
     alias ssh-add=\"$SCRIPT ssh-add\"
 fi"
 
-    CODE_EXISTS=$(grep "$SCRIPT ssh-add" ~/.profile || grep "$SCRIPT ssh-add" ~/.bash_profile || echo)
+    CODE_EXISTS=$(grep "$SCRIPT ssh-add" ~/.profile &>/dev/null || grep "$SCRIPT ssh-add" ~/.bash_profile &>/dev/null || echo)
     if [ ! -z "$CODE_EXISTS" ]; then
         echo "It looks like the ssh-agent code is already in your ~/.profile file. Skipping."
     else
