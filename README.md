@@ -11,7 +11,7 @@ It also works with Cloud9 (naturally).
 ## Installation
 
 ```
-git clone https://github.com/cloud9ide/lpass-ssh-agent.git
+git clone https://github.com/justin8/lpass-ssh-agent.git
 cd lpass-ssh-agent
 ./keyring.sh install
 ```
